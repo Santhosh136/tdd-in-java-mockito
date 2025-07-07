@@ -1,4 +1,7 @@
 package dev.sans.wand;
 
-public class WandOperationException {
+public class WandOperationException extends RuntimeException {
+    public WandOperationException(String message) {
+        super(message);
+    }
 }

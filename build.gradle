@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group = 'dev.sans'
@@ -12,8 +13,21 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation("org.mockito:mockito-junit-jupiter:5.17.0")
 }
+
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+
+jacocoTestReport {
+    dependsOn test // Run tests before generating report
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
